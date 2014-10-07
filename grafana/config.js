@@ -34,13 +34,14 @@ function (Settings) {
         password: 'cadvisor',
         //grafanaDB: true
       },
-/*      elasticsearch: {
-        type: 'elasticsearch',
-        url: "http://elasticsearch:9200",
+      influxdb_dash: {
+        type: 'influxdb',
+        url: "http://influxdb:8086/db/grafana-dash",
         index: 'grafana-dash',
+        username: 'grafana',
+        password: 'grafana',
         grafanaDB: true,
       }
-*/
     },
 
     // Graphite & Elasticsearch example setup

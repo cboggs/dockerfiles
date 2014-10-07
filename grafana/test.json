@@ -49,7 +49,7 @@
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": true,
+          "stack": false,
           "legend": {
             "show": true,
             "values": false,
@@ -74,14 +74,28 @@
               "function": "derivative",
               "column": "value",
               "series": "requests",
-              "query": "select servername, derivative(value) from \"requests\" where $timeFilter group by time($interval), servername order asc",
-              "alias": "$g",
-              "groupby_field": "servername",
-              "interval": ""
+              "query": "select derivative(value) from \"requests\" where $timeFilter group by time($interval) order asc",
+              "alias": "request_rate",
+              "groupby_field": "",
+              "interval": "",
+              "fill": ""
+            },
+            {
+              "target": "",
+              "function": "mean",
+              "column": "value",
+              "series": "requests_single_smooth",
+              "query": "select mean(value) from \"requests_single_smooth\" where $timeFilter group by time($interval) order asc",
+              "alias": "single_smooth"
             }
           ],
           "aliasColors": {},
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "request_rate",
+              "fill": 1
+            }
+          ],
           "title": "Request Rate",
           "interval": ">=16s",
           "leftYAxisLabel": "req/s"
@@ -119,12 +133,12 @@
         "2h",
         "1d"
       ],
-      "now": true
+      "now": false
     }
   ],
   "time": {
-    "from": "now-30d",
-    "to": "now"
+    "from": "2014-09-15T06:41:43.959Z",
+    "to": "2014-09-15T07:27:10.799Z"
   },
   "templating": {
     "list": [],
